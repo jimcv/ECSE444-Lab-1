@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "lab1math.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -85,7 +85,11 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  // define our variables and array
+  float max = 0;
+  uint32_t maxIndex;
+  // the max is 88.49 at index 5
+  float array[10] = {48.21, 79.48, 24.27, 28.82, 78.24, 88.49, 31.19, 5.52, 82.70, 77.73};
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -95,6 +99,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	cMax(&array, 10, &max, &maxIndex);
   }
   /* USER CODE END 3 */
 }
