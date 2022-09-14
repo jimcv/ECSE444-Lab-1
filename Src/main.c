@@ -31,6 +31,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define ITM_Port32(n) (*((volatile unsigned long *) (0xE0000000+4*n)))
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -99,7 +100,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	cMax(&array, 10, &max, &maxIndex);
+	  ITM_Port32(31) = 1;
+	  for (uint32_t i=0; i<1000; i++)
+	  {
+		  cMax(&array, 10, &max, &maxIndex);
+	  }
+	  ITM_Port32(31) = 2;
   }
   /* USER CODE END 3 */
 }
