@@ -91,7 +91,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   // define our variables and array
   float max = 0;
-  uint32_t maxIndex;
+  uint32_t maxIndex = 0;
   float maxAsm = 0;
   uint32_t maxIndexAsm = 0;
   float maxCMSIS = 0;
@@ -108,19 +108,19 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  ITM_Port32(31) = 1;
-	  for (uint32_t i=0; i<1000; i++)
+	  for (uint32_t i = 0; i < 1000; i++)
 	  {
-		  cMax(&array, 10, &max, &maxIndex);
+		  cMax(array, 10, &max, &maxIndex);
 	  }
 	  ITM_Port32(31) = 2;
 	  for (uint32_t i = 0; i < 1000; i++)
 	  {
-		  asmMax(&array, 10, &maxAsm, &maxIndexAsm);
+		  asmMax(array, 10, &maxAsm, &maxIndexAsm);
 	  }
 	  ITM_Port32(31) = 3;
 	  for (uint32_t i = 0; i < 1000; i++)
 	  {
-		  arm_max_f32(&array, 10, &maxCMSIS, &maxIndexCMSIS);
+		  arm_max_f32(array, 10, &maxCMSIS, &maxIndexCMSIS);
 	  }
 	  ITM_Port32(31) = 4;
   }
