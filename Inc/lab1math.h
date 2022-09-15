@@ -12,6 +12,7 @@
 
 void cMax(float *array, uint32_t size, float *max, uint32_t *maxIndex);
 
+extern void asmMax(float *array, uint32_t size, float *max, uint32_t *maxIndex);
 
 
 
