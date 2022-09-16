@@ -35,6 +35,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define ITM_Port32(n) (*((volatile unsigned long *) (0xE0000000+4*n)))
+#define ARRAY_LEN(a) sizeof(a) / sizeof(a[0])
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -98,6 +99,12 @@ int main(void)
   uint32_t maxIndexCMSIS = 0;
   // the max is 88.49 at index 5
   float array[10] = {48.21, 79.48, 24.27, 28.82, 78.24, 88.49, 31.19, 5.52, 82.70, 77.73};
+
+  // element-wise multiplication
+  float vec_a[3] = {5.78, 2.31, 3.00};
+  float vec_b[3] = {12.0, -4.22, 76.93};
+  float vec_res[3] = {0};  // fill result vector with 0
+  float vec_res_CMSIS[3] = {0};
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -123,6 +130,16 @@ int main(void)
 		  arm_max_f32(array, 10, &maxCMSIS, &maxIndexCMSIS);
 	  }
 	  ITM_Port32(31) = 4;
+	  for (uint32_t i = 0; i < 1000; i++)
+	  {
+		  arm_mult_f32(vec_a, vec_b, vec_res_CMSIS, ARRAY_LEN(vec_a));
+	  }
+	  ITM_Port32(31) = 5;
+	  for (uint32_t i = 0; i < 1000; i++)
+	  {
+		  cMult(vec_a, vec_b, vec_res, ARRAY_LEN(vec_a));
+	  }
+	  ITM_Port32(31) = 6;
   }
   /* USER CODE END 3 */
 }
