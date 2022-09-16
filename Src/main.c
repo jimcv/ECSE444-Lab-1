@@ -104,6 +104,7 @@ int main(void)
   float vec_a[3] = {5.78, 2.31, 3.00};
   float vec_b[3] = {12.0, -4.22, 76.93};
   float vec_res[3] = {0};  // fill result vector with 0
+  float vec_res_asm[3] = {0};
   float vec_res_CMSIS[3] = {0};
   /* USER CODE END 2 */
 
@@ -114,6 +115,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  // array max
 	  ITM_Port32(31) = 1;
 	  for (uint32_t i = 0; i < 1000; i++)
 	  {
@@ -130,16 +132,22 @@ int main(void)
 		  arm_max_f32(array, 10, &maxCMSIS, &maxIndexCMSIS);
 	  }
 	  ITM_Port32(31) = 4;
-	  for (uint32_t i = 0; i < 1000; i++)
-	  {
-		  arm_mult_f32(vec_a, vec_b, vec_res_CMSIS, ARRAY_LEN(vec_a));
-	  }
-	  ITM_Port32(31) = 5;
+	  // element-wise multiplication
 	  for (uint32_t i = 0; i < 1000; i++)
 	  {
 		  cMult(vec_a, vec_b, vec_res, ARRAY_LEN(vec_a));
 	  }
+	  ITM_Port32(31) = 5;
+	  for (uint32_t i = 0; i < 1000; i++)
+	  {
+		  asmMult(vec_a, vec_b, vec_res_asm, ARRAY_LEN(vec_a));
+	  }
 	  ITM_Port32(31) = 6;
+	  for (uint32_t i = 0; i < 1000; i++)
+	  {
+		  arm_mult_f32(vec_a, vec_b, vec_res_CMSIS, ARRAY_LEN(vec_a));
+	  }
+	  ITM_Port32(31) = 7;
   }
   /* USER CODE END 3 */
 }

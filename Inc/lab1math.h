@@ -16,6 +16,8 @@ extern void asmMax(float *array, uint32_t size, float *max, uint32_t *maxIndex);
 
 void cMult(float *vec_a, float *vec_b, float *vec_dest, uint32_t vec_length);
 
+extern void asmMult(float *vec_a, float *vec_b, float *vec_dest, uint32_t vec_length);
+
 
 
 #endif /* INC_LAB1MATH_H_ */
