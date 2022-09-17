@@ -34,7 +34,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define ITM_Port32(n) (*((volatile unsigned long *) (0xE0000000+4*n)))
+#define ITM_Port32(n) (*((volatile unsigned long *) (0xE0000000+4*n)))  // ITM base addr (see Cortex-M4 manual p.93)
 #define ARRAY_LEN(a) sizeof(a) / sizeof(a[0])
 /* USER CODE END PD */
 
@@ -106,6 +106,11 @@ int main(void)
   float vec_res[3] = {0};  // fill result vector with 0
   float vec_res_asm[3] = {0};
   float vec_res_CMSIS[3] = {0};
+
+  // standard deviation
+  const float stddev_data[10] = {48.21, 79.48, 24.27, 28.82, 78.24, 88.49, 31.19, 5.52, 82.70, 77.73};
+  float stddev_res = 0;
+  float stddev_res_CMSIS = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -148,6 +153,17 @@ int main(void)
 		  arm_mult_f32(vec_a, vec_b, vec_res_CMSIS, ARRAY_LEN(vec_a));
 	  }
 	  ITM_Port32(31) = 7;
+	  // standard deviation
+	  for (uint32_t i = 0; i < 1000; i++)
+	  {
+		  arm_std_f32(stddev_data, ARRAY_LEN(stddev_data), &stddev_res_CMSIS);
+	  }
+	  ITM_Port32(31) = 8;
+	  for (uint32_t i = 0; i < 1000; i++)
+	  {
+		  cStd(stddev_data, ARRAY_LEN(stddev_data), &stddev_res);
+	  }
+	  ITM_Port32(31) = 9;
   }
   /* USER CODE END 3 */
 }

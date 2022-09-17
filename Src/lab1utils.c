@@ -15,3 +15,20 @@ void cMult(float *vec_a, float *vec_b, float *vec_dest, uint32_t vec_length)
 		vec_dest[i] = vec_a[i] * vec_b[i];
 	}
 }
+
+void cStd(const float *list, uint32_t list_length, float *result)
+{
+	float sum = 0;
+	for (uint32_t i = 0; i < list_length; i++)
+	{
+		sum += list[i];
+	}
+	float mean = sum / list_length;
+	float variance = 0;
+	for (uint32_t i = 0; i < list_length; i++)
+	{
+		float x = list[i] - mean;
+		variance += x * x / (list_length - 1);
+	}
+	(*result) = sqrtf(variance);
+}
