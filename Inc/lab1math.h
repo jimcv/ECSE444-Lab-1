@@ -21,6 +21,8 @@ extern void asmMult(float *vec_a, float *vec_b, float *vec_dest, uint32_t vec_le
 
 void cStd(const float *list, uint32_t list_length, float *result);
 
+extern void asmStd(const float *list, uint32_t list_length, float *result);
+
 
 
 #endif /* INC_LAB1MATH_H_ */

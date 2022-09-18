@@ -110,6 +110,7 @@ int main(void)
   // standard deviation
   const float stddev_data[10] = {48.21, 79.48, 24.27, 28.82, 78.24, 88.49, 31.19, 5.52, 82.70, 77.73};
   float stddev_res = 0;
+  float stddev_res_asm = 0;
   float stddev_res_CMSIS = 0;
   /* USER CODE END 2 */
 
@@ -156,14 +157,19 @@ int main(void)
 	  // standard deviation
 	  for (uint32_t i = 0; i < 1000; i++)
 	  {
-		  arm_std_f32(stddev_data, ARRAY_LEN(stddev_data), &stddev_res_CMSIS);
+		  cStd(stddev_data, ARRAY_LEN(stddev_data), &stddev_res);
 	  }
 	  ITM_Port32(31) = 8;
 	  for (uint32_t i = 0; i < 1000; i++)
 	  {
-		  cStd(stddev_data, ARRAY_LEN(stddev_data), &stddev_res);
+		  asmStd(stddev_data, ARRAY_LEN(stddev_data), &stddev_res_asm);
 	  }
 	  ITM_Port32(31) = 9;
+	  for (uint32_t i = 0; i < 1000; i++)
+	  {
+		  arm_std_f32(stddev_data, ARRAY_LEN(stddev_data), &stddev_res_CMSIS);
+	  }
+	  ITM_Port32(31) = 10;
   }
   /* USER CODE END 3 */
 }
