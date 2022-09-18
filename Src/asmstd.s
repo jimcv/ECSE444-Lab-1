@@ -37,7 +37,7 @@ sum_loop:
 
 end_sum_loop:
 	VMOV			S1, R1				// S1 <- length (need to be converted)
-	VCVT.F32.S32	S1, S1				// signed int to 32-bit float
+	VCVT.F32.U32	S1, S1				// uint32_t to single precision float
 	VDIV.F32		S2, S0, S1			// S2 <- mean = sum / length
 	VMOV			S3, #1				// S3 <- temporary value to perform length - 1
 	VSUB.F32		S1, S1, S3			// S1 <- length - 1
