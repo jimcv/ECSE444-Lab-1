@@ -109,7 +109,7 @@ int main(void)
 
   // standard deviation
 //  const float stddev_data[10] = {48.21, 79.48, 24.27, 28.82, 78.24, 88.49, 31.19, 5.52, 82.70, 77.73};  // CMSIS is different
-  const float stddev_data[10] = {21.2, 99.85, -48.2, 2.32, 123.32, 9.76, -12.22, -50.0, 33.33, 10.98};  //cStd is different
+  const float stddev_data[10] = {21.2, 99.85, -48.2, 2.32, 123.32, 9.76, -12.22, -50.0, 33.33, 10.98};  // old cStd is different due to division rounding
   float stddev_res = 0;
   float stddev_res_asm = 0;
   float stddev_res_CMSIS = 0;
