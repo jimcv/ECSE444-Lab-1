@@ -24,11 +24,11 @@ void cStd(const float *list, uint32_t list_length, float *result)
 		sum += list[i];
 	}
 	float mean = sum / list_length;
-	float variance = 0;
+	float sum_2 = 0;
 	for (uint32_t i = 0; i < list_length; i++)
 	{
 		float x = list[i] - mean;
-		variance += x * x / (list_length - 1);
+		sum_2 += x * x;
 	}
-	(*result) = sqrtf(variance);
+	(*result) = sqrtf(sum_2 / (list_length - 1));
 }
