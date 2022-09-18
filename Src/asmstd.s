@@ -51,7 +51,7 @@ variance_loop:
 	BGE				end_variance_loop	// loop ends when index >= length
 	VLDR.32			S3, [R5]			// S3 <- list[i]
 	VSUB.F32		S3, S3, S2			// S3 <- list[i] - mean
-	VMLA.F32		S0, S3, S3			// multiply and accumulate (would VMUL + VADD be faster?)
+	VMLA.F32		S0, S3, S3			// multiply and accumulate
 	// increment index and addr
 	ADD				R4, R4, #1
 	ADD				R5, R5, #4
